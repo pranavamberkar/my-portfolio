@@ -13,7 +13,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.5'
+          flutter-version: '3.22.0'
           channel: 'stable'
 
       - name: Confirm Flutter and Dart Version
