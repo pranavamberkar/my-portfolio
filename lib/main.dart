@@ -63,57 +63,93 @@ class _PortfolioHomeState extends State<PortfolioHome> {
       contactKey
     ];
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final bool isSmallScreen = screenWidth < 600;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
-        title: const Text("Pranav Amberkar",
-            style: TextStyle(color: Colors.black)),
-        actions: List.generate(navItems.length, (index) {
-          return MouseRegion(
-            onEnter: (_) => setState(() => _isHovering[index] = true),
-            onExit: (_) => setState(() => _isHovering[index] = false),
-            child: TextButton(
-              onPressed: () => scrollToSection(navKeys[index]),
-              child: Text(
-                navItems[index],
-                style: TextStyle(
-                  color: _isHovering[index] ? Colors.white : Colors.black,
-                  fontWeight:
-                      _isHovering[index] ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-            ),
-          );
-        }),
+        title: const Text(
+          "Pranav Amberkar",
+          style: TextStyle(color: Colors.black),
+        ),
+        actions: isSmallScreen
+            ? null
+            : List.generate(navItems.length, (index) {
+                return MouseRegion(
+                  onEnter: (_) => setState(() => _isHovering[index] = true),
+                  onExit: (_) => setState(() => _isHovering[index] = false),
+                  child: TextButton(
+                    onPressed: () => scrollToSection(navKeys[index]),
+                    child: Text(
+                      navItems[index],
+                      style: TextStyle(
+                        color: _isHovering[index] ? Colors.white : Colors.black,
+                        fontWeight: _isHovering[index]
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                );
+              }),
       ),
+      drawer: isSmallScreen
+          ? Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(color: Colors.lightBlue),
+                    child: Text(
+                      'Navigation',
+                      style: TextStyle(fontSize: 24, color: Colors.white),
+                    ),
+                  ),
+                  for (int i = 0; i < navItems.length; i++)
+                    ListTile(
+                      title: Text(navItems[i]),
+                      onTap: () {
+                        Navigator.pop(context); // Close drawer
+                        scrollToSection(navKeys[i]);
+                      },
+                    ),
+                ],
+              ),
+            )
+          : null,
       body: SingleChildScrollView(
         controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Section(
-                key: homeKey,
-                title: "Home",
-                backgroundColor: Colors.lightGreen,
-                content: const HomeSection()),
+              key: homeKey,
+              title: "Home",
+              backgroundColor: Colors.lightGreen,
+              content: const HomeSection(),
+            ),
             const SizedBox(height: 15),
             Section(
-                key: projectsKey,
-                title: "Projects",
-                backgroundColor: Colors.lightGreenAccent,
-                content: const ProjectSection()),
+              key: projectsKey,
+              title: "Projects",
+              backgroundColor: Colors.lightGreenAccent,
+              content: const ProjectSection(),
+            ),
             const SizedBox(height: 15),
             Section(
-                key: resumeKey,
-                title: "Resume",
-                backgroundColor: Colors.lime,
-                content: const ResumeSection()),
+              key: resumeKey,
+              title: "Resume",
+              backgroundColor: Colors.lime,
+              content: const ResumeSection(),
+            ),
             const SizedBox(height: 15),
             Section(
-                key: contactKey,
-                title: "Contact",
-                backgroundColor: Colors.limeAccent,
-                content: const ContactSection()),
+              key: contactKey,
+              title: "Contact",
+              backgroundColor: Colors.limeAccent,
+              content: const ContactSection(),
+            ),
             const SizedBox(height: 15),
           ],
         ),
