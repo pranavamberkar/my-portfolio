@@ -172,28 +172,35 @@ class Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final bool isSmallScreen = screenWidth < 600;
 
     return Container(
       color: backgroundColor,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 12 : 24),
       constraints: BoxConstraints(minHeight: screenHeight * 0.9),
       width: double.infinity,
       child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 24),
-            content,
-          ],
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1000),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: isSmallScreen ? 24 : 36,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 24),
+              content,
+            ],
+          ),
         ),
       ),
     );
   }
 }
-// Minor change to trigger deploy
