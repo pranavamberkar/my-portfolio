@@ -72,8 +72,8 @@ class _ProjectSectionState extends State<ProjectSection>
             decoration: BoxDecoration(
               gradient: RadialGradient(
                 colors: [
-                  color.withValues(alpha: 0.95),
-                  color.withValues(alpha: 0.5)
+                  color.withOpacity(0.95),
+                  color.withOpacity(0.5)
                 ],
                 center: const Alignment(-0.2, -0.8),
               ),
@@ -97,13 +97,13 @@ class _ProjectSectionState extends State<ProjectSection>
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withValues(alpha: 0.15),
+              color: Colors.grey.withOpacity(0.15),
               blurRadius: 10,
               offset: const Offset(0, 6),
             ),
           ],
           border: Border.all(
-            color: Colors.deepPurple.withValues(alpha: 0.15),
+            color: Colors.deepPurple.withOpacity(0.15),
             width: 1.2,
           ),
         ),
@@ -138,7 +138,7 @@ class _ProjectSectionState extends State<ProjectSection>
                   .map((t) => Chip(
                 label: Text(t),
                 backgroundColor:
-                Colors.deepPurple.withValues(alpha: 0.08),
+                Colors.deepPurple.withOpacity(0.08),
                 labelStyle: const TextStyle(fontSize: 12),
               ))
                   .toList(),
@@ -189,7 +189,7 @@ class _ProjectSectionState extends State<ProjectSection>
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.white, gradientMid.withValues(alpha: 0.03)],
+          colors: [Colors.white, gradientMid.withOpacity(0.03)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),

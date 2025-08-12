@@ -48,8 +48,8 @@ class _AboutSectionState extends State<AboutSection>
             decoration: BoxDecoration(
               gradient: RadialGradient(
                 colors: [
-                  color.withValues(alpha: 0.95),
-                  color.withValues(alpha: 0.5)
+                  color. withOpacity(0.95),
+                  color. withOpacity(0.5)
                 ],
                 center: const Alignment(-0.2, -0.8),
               ),
@@ -93,7 +93,7 @@ class _AboutSectionState extends State<AboutSection>
       return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.white, gradientMid.withValues(alpha: 0.03)],
+            colors: [Colors.white, gradientMid. withOpacity(0.03)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -223,7 +223,7 @@ class _AboutSectionState extends State<AboutSection>
               .map(
                 (skill) => Chip(
               label: Text(skill),
-              backgroundColor: Colors.deepPurple.withValues(alpha: 0.08),
+              backgroundColor: Colors.deepPurple. withOpacity(0.08),
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w500,
               ),

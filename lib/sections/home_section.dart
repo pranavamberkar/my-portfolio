@@ -58,8 +58,8 @@ class _HomeSectionState extends State<HomeSection>
             decoration: BoxDecoration(
               gradient: RadialGradient(
                 colors: [
-                  color.withValues(alpha: 0.95),
-                  color.withValues(alpha: 0.5),
+                  color.withOpacity(0.95),
+                  color.withOpacity(0.5),
                 ],
                 center: const Alignment(-0.2, -0.8),
               ),
@@ -128,7 +128,7 @@ class _HomeSectionState extends State<HomeSection>
         // gentle background gradient like the reference
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [gradientEnd, gradientMid.withValues(alpha: 0.05)],
+            colors: [gradientEnd, gradientMid.withOpacity(0.05)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -213,7 +213,7 @@ class _HomeSectionState extends State<HomeSection>
                                               vertical: 6.0, horizontal: 12.0),
                                           decoration: BoxDecoration(
                                             color:
-                                            gradientStart.withValues(alpha: 0.12),
+                                            gradientStart.withOpacity(0.12),
                                             borderRadius:
                                             BorderRadius.circular(20.0),
                                           ),
@@ -316,7 +316,7 @@ class _HomeSectionState extends State<HomeSection>
                                               style: OutlinedButton.styleFrom(
                                                 side: BorderSide(
                                                     color:
-                                                    gradientStart.withValues(alpha: 0.9)),
+                                                    gradientStart.withOpacity(0.9)),
                                                 padding: const EdgeInsets.symmetric(
                                                     vertical: 14.0, horizontal: 18.0),
                                                 shape: RoundedRectangleBorder(
@@ -332,11 +332,11 @@ class _HomeSectionState extends State<HomeSection>
                                         Container(
                                           padding: const EdgeInsets.all(12.0),
                                           decoration: BoxDecoration(
-                                            color: gradientMid.withValues(alpha: 0.95),
+                                            color: gradientMid.withOpacity(0.95),
                                             borderRadius: BorderRadius.circular(14.0),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Colors.black.withValues(alpha: 0.08),
+                                                color: Colors.black.withOpacity(0.08),
                                                 blurRadius: 12.0,
                                                 offset: const Offset(0, 6),
                                               ),
@@ -382,8 +382,8 @@ class _HomeSectionState extends State<HomeSection>
                                               decoration: BoxDecoration(
                                                 gradient: LinearGradient(
                                                   colors: [
-                                                    gradientStart.withValues(alpha: 0.95),
-                                                    gradientMid.withValues(alpha: 0.9),
+                                                    gradientStart.withOpacity(0.95),
+                                                    gradientMid.withOpacity(0.9),
                                                   ],
                                                   begin: Alignment.topLeft,
                                                   end: Alignment.bottomRight,
@@ -391,7 +391,7 @@ class _HomeSectionState extends State<HomeSection>
                                                 borderRadius: BorderRadius.circular(28.0),
                                                 boxShadow: [
                                                   BoxShadow(
-                                                    color: Colors.black.withValues(alpha: 0.14),
+                                                    color: Colors.black.withOpacity(0.14),
                                                     offset: const Offset(0, 8),
                                                     blurRadius: 24.0,
                                                   ),
@@ -421,12 +421,12 @@ class _HomeSectionState extends State<HomeSection>
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   border: Border.all(
-                                                    color: Colors.white.withValues(alpha: 0.9),
+                                                    color: Colors.white.withOpacity(0.9),
                                                     width: 6.0,
                                                   ),
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black.withValues(alpha: 0.18),
+                                                      color: Colors.black.withOpacity(0.18),
                                                       blurRadius: 18.0,
                                                       offset: const Offset(0, 8),
                                                     ),
@@ -450,7 +450,7 @@ class _HomeSectionState extends State<HomeSection>
                                                   Text(
                                                     "UI / Flutter Designer",
                                                     style: TextStyle(
-                                                      color: Colors.white.withValues(alpha: 0.85),
+                                                      color: Colors.white.withOpacity(0.85),
                                                       fontSize: 12.0,
                                                       fontWeight: FontWeight.w600,
                                                     ),
@@ -483,7 +483,7 @@ class _HomeSectionState extends State<HomeSection>
                                                         onPressed: () {},
                                                         style: OutlinedButton.styleFrom(
                                                           side: BorderSide(
-                                                              color: Colors.white.withValues(alpha: 0.6)),
+                                                              color: Colors.white.withOpacity(0.6)),
                                                           foregroundColor: Colors.white,
                                                           padding: const EdgeInsets.symmetric(
                                                               vertical: 10.0, horizontal: 12.0),
@@ -523,7 +523,7 @@ class _HomeSectionState extends State<HomeSection>
                                 borderRadius: BorderRadius.circular(18.0),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withValues(alpha: 0.06),
+                                    color: Colors.black.withOpacity(0.06),
                                     blurRadius: 18.0,
                                     offset: const Offset(0, 8),
                                   )

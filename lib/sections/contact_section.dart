@@ -53,8 +53,8 @@ class _ContactSectionState extends State<ContactSection>
             decoration: BoxDecoration(
               gradient: RadialGradient(
                 colors: [
-                  color.withValues(alpha: 0.95),
-                  color.withValues(alpha: 0.5)
+                  color.withOpacity(0.95),
+                  color.withOpacity(0.5)
                 ],
                 center: const Alignment(-0.2, -0.8),
               ),
@@ -86,7 +86,7 @@ class _ContactSectionState extends State<ContactSection>
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.white, gradientMid.withValues(alpha: 0.03)],
+          colors: [Colors.white, gradientMid.withOpacity(0.03)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -249,17 +249,17 @@ class _ContactSectionState extends State<ContactSection>
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-            color: Colors.grey.withValues(alpha: 0.2), width: 1.0.toDouble()),
+            color: Colors.grey.withOpacity(0.2), width: 1.0.toDouble()),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-            color: Colors.grey.withValues(alpha: 0.2), width: 1.0.toDouble()),
+            color: Colors.grey.withOpacity(0.2), width: 1.0.toDouble()),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
-            color: Colors.teal.withValues(alpha: 0.6), width: 1.0.toDouble()),
+            color: Colors.teal.withOpacity(0.6), width: 1.0.toDouble()),
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     );
