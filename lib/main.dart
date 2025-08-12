@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sections/home_section.dart';
+import 'sections/about_section.dart';
 import 'sections/project_section.dart';
-import 'sections/resume_section.dart';
 import 'sections/contact_section.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyPortfolio extends StatelessWidget {
     return MaterialApp(
       title: 'Pranav Amberkar Portfolio',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
         fontFamily: 'Arial',
       ),
       debugShowCheckedModeBanner: false,
@@ -34,89 +34,110 @@ class PortfolioHome extends StatefulWidget {
 
 class _PortfolioHomeState extends State<PortfolioHome> {
   final ScrollController _scrollController = ScrollController();
+  double _scrollOffset = 0.0;
 
   final homeKey = GlobalKey();
+  final aboutKey = GlobalKey();
   final projectsKey = GlobalKey();
-  final resumeKey = GlobalKey();
   final contactKey = GlobalKey();
 
   final List<bool> _isHovering = [false, false, false, false];
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      setState(() {
+        _scrollOffset = _scrollController.offset;
+      });
+    });
+  }
 
   void scrollToSection(GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
       Scrollable.ensureVisible(
         context,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOutCubic,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> navItems = ["Home", "Projects", "Resume", "Contact"];
+    List<String> navItems = ["Home", "About", "Projects", "Contact"];
     final List<GlobalKey> navKeys = [
       homeKey,
+      aboutKey,
       projectsKey,
-      resumeKey,
       contactKey
     ];
 
     final screenWidth = MediaQuery.of(context).size.width;
     final bool isSmallScreen = screenWidth < 600;
 
+    // Calculate AppBar background opacity based on scroll
+    double opacity = (_scrollOffset / 150).clamp(0, 1);
+    Color appBarColor = Colors.deepPurpleAccent.withOpacity(opacity);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue,
-        title: const Text(
+        backgroundColor: appBarColor,
+        elevation: opacity > 0.1 ? 2 : 0,
+        title: Text(
           "Pranav Amberkar",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: opacity > 0.5 ? Colors.black : Colors.black87,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: isSmallScreen
             ? null
             : List.generate(navItems.length, (index) {
-                return MouseRegion(
-                  onEnter: (_) => setState(() => _isHovering[index] = true),
-                  onExit: (_) => setState(() => _isHovering[index] = false),
-                  child: TextButton(
-                    onPressed: () => scrollToSection(navKeys[index]),
-                    child: Text(
-                      navItems[index],
-                      style: TextStyle(
-                        color: _isHovering[index] ? Colors.white : Colors.black,
-                        fontWeight: _isHovering[index]
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                );
-              }),
+          return MouseRegion(
+            onEnter: (_) => setState(() => _isHovering[index] = true),
+            onExit: (_) => setState(() => _isHovering[index] = false),
+            child: TextButton(
+              onPressed: () => scrollToSection(navKeys[index]),
+              child: Text(
+                navItems[index],
+                style: TextStyle(
+                  color: _isHovering[index]
+                      ? Colors.white
+                      : (opacity > 0.5 ? Colors.black : Colors.black87),
+                  fontWeight: _isHovering[index]
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                ),
+              ),
+            ),
+          );
+        }),
       ),
       drawer: isSmallScreen
           ? Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const DrawerHeader(
-                    decoration: BoxDecoration(color: Colors.lightBlue),
-                    child: Text(
-                      'Navigation',
-                      style: TextStyle(fontSize: 24, color: Colors.white),
-                    ),
-                  ),
-                  for (int i = 0; i < navItems.length; i++)
-                    ListTile(
-                      title: Text(navItems[i]),
-                      onTap: () {
-                        Navigator.pop(context); // Close drawer
-                        scrollToSection(navKeys[i]);
-                      },
-                    ),
-                ],
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.deepPurpleAccent),
+              child: Text(
+                'Navigation',
+                style: TextStyle(fontSize: 24, color: Colors.white),
               ),
-            )
+            ),
+            for (int i = 0; i < navItems.length; i++)
+              ListTile(
+                title: Text(navItems[i]),
+                onTap: () {
+                  Navigator.pop(context);
+                  scrollToSection(navKeys[i]);
+                },
+              ),
+          ],
+        ),
+      )
           : null,
       body: SingleChildScrollView(
         controller: _scrollController,
@@ -126,28 +147,39 @@ class _PortfolioHomeState extends State<PortfolioHome> {
             Section(
               key: homeKey,
               title: "Home",
-              backgroundColor: Colors.lightGreen,
-              content: const HomeSection(),
+              backgroundColor: Colors.white,
+              maxWidth: 1200,
+              content: HomeSection(
+                onViewResume: () {
+                  scrollToSection(contactKey);
+                },
+                onContactMe: () {
+                  scrollToSection(contactKey);
+                },
+              ),
+            ),
+            const SizedBox(height: 15),
+            Section(
+              key: aboutKey,
+              title: "About",
+              backgroundColor: Colors.white,
+              maxWidth: 1200,
+              content: const AboutSection(),
             ),
             const SizedBox(height: 15),
             Section(
               key: projectsKey,
               title: "Projects",
-              backgroundColor: Colors.lightGreenAccent,
+              backgroundColor: Colors.white,
+              maxWidth: 1200,
               content: const ProjectSection(),
-            ),
-            const SizedBox(height: 15),
-            Section(
-              key: resumeKey,
-              title: "Resume",
-              backgroundColor: Colors.lime,
-              content: const ResumeSection(),
             ),
             const SizedBox(height: 15),
             Section(
               key: contactKey,
               title: "Contact",
-              backgroundColor: Colors.limeAccent,
+              backgroundColor: Colors.white,
+              maxWidth: 1200,
               content: const ContactSection(),
             ),
             const SizedBox(height: 15),
@@ -162,12 +194,14 @@ class Section extends StatelessWidget {
   final String title;
   final Widget content;
   final Color backgroundColor;
+  final double maxWidth;
 
   const Section({
     super.key,
     required this.title,
     required this.content,
     this.backgroundColor = Colors.white,
+    this.maxWidth = 1200.0,
   });
 
   @override
@@ -179,11 +213,11 @@ class Section extends StatelessWidget {
     return Container(
       color: backgroundColor,
       padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 12 : 24),
-      constraints: BoxConstraints(minHeight: screenHeight * 0.9),
+      constraints: BoxConstraints(minHeight: (screenHeight * 0.9).toDouble()),
       width: double.infinity,
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1000),
+          constraints: BoxConstraints(maxWidth: maxWidth.toDouble()),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
